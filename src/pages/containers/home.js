@@ -14,9 +14,10 @@ class Home extends Component {
   }
 
 
-  handleModalToggle = (event)=>{
+  handleModalToggle = (media)=>{
     this.setState({
-      modalVisible : !this.state.modalVisible
+      modalVisible : !this.state.modalVisible,
+      media
     })
   }
 
@@ -31,13 +32,17 @@ class Home extends Component {
       <HandleError>
         <HomeLayout>
           <Related related={this.props.related} />
-          <VideoPlayer/>
+          
           <Categories categories={this.props.data.categories} handleModalToggle={this.handleModalToggle} />
           {
             this.state.modalVisible &&
               <ModalContainer>
               <Modal handleClick={this.handleModalToggle}>
-                <h1>Esto es un modal</h1>
+                <VideoPlayer
+                autoplay={false}
+                src={this.state.media.src}
+                title={this.state.media.title}
+                />
               </Modal>
             </ModalContainer>
           }
